@@ -1,0 +1,14 @@
+; GBVSR-LobbyFPSUnlocker 配置
+; 大厅目标帧数(改成你想要的值,如 60 / 120 / 144)
+target_fps=60
+
+; 触发阈值:仅当 Engine.FixedFrameRate 在此值±tolerance 范围内才干预
+; 游戏大厅原始 FixedFrameRate=30,设成 30 即可
+trigger_fps=30
+trigger_tolerance=5
+
+; 看门狗周期(毫秒)
+watchdog_ms=250
+
+; 每次实际写入都打日志(true/false)
+log_apply=true
