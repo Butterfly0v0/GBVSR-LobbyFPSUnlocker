@@ -30,20 +30,24 @@ The whole loop is driven by a `LoopAsync` watchdog that re-checks every `250ms` 
 
 - **UE4SS** (v3.0.0+ recommended; tested on v3.0.1 Beta, commit `e39e9c8`).
   The game already has UE4SS if you see `RED\Binaries\Win64\UE4SS.dll`.
-- **ConsoleEnablerMod** enabled (ships with UE4SS) for the `lobbyfps` console commands.
-  Not required for the mod itself to function.
+- (Optional) **ConsoleEnablerMod** enabled (ships with UE4SS) for the `lobbyfps`
+  console commands. The mod unlocks the lobby automatically without it — the
+  console commands are only for on-the-fly tuning / inspection.
 
-The latest release on this repo ships a **self-contained zip** that bundles UE4SS
-plus the mod (see [Releases](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases)).
-If you've never installed UE4SS, that's the only download you need.
+The latest release on this repo ships a **minimal self-contained zip** that bundles
+UE4SS's core DLLs plus this mod (see
+[Releases](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases)). It does
+**not** ship the standard UE4SS example mods (`ConsoleEnablerMod`, `BPModLoaderMod`,
+dumpers, etc.) — for the full UE4SS feature set, download the complete distribution
+from <https://github.com/UE4SS-RE/RE-UE4SS/releases>.
 
 ## Installation
 
-### Option A — Self-contained release (no UE4SS installed yet)
+### Option A — Minimal release (no UE4SS installed yet)
 
 1. Download the latest `GBVSR-LobbyFPSUnlocker-vX.Y.Z.zip` from the
    [Releases page](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases).
-   It bundles UE4SS v3.0.1 Beta (commit `e39e9c8`) + the mod.
+   It bundles UE4SS v3.0.1 Beta (commit `e39e9c8`) core DLLs + the mod.
 2. Locate your game install — usually
    `C:\Program Files (x86)\Steam\steamapps\common\Granblue Fantasy Versus Rising`.
    (In Steam: right-click the game → Manage → Browse local files.)
@@ -54,24 +58,32 @@ If you've never installed UE4SS, that's the only download you need.
    Win64\
        dwmapi.dll                (UE4SS proxy, auto-loaded by the game)
        UE4SS.dll                 (UE4SS main loader)
-       patternsleuth_bind.dll    (UE4SS dependency)
        UE4SS-settings.ini
-       READ-THIS-FIRST.md        (install guide — same content as this section)
-       Changelog.md              (UE4SS changelog)
-       UE4SS-README.md           (UE4SS's own readme, renamed to avoid clash)
-       cache\  liveview\  watches\
+       READ-THIS-FIRST.md        (install guide & troubleshooting)
        Mods\
            mods.txt
            GBVSR-LobbyFPSUnlocker\   <-- the actual mod
-           ConsoleEnablerMod\        <-- enables the F10 in-game console
-           ... other standard UE4SS mods
    ```
+   Note: this minimal package does **not** include the standard UE4SS example mods
+   (`ConsoleEnablerMod`, etc.) or runtime caches. The mod still works — it
+   automatically unlocks the lobby on entry based on its `config.txt`. The
+   `lobbyfps` console commands, however, are unavailable in this minimal package
+   (they require `ConsoleEnablerMod`).
 5. Launch the game. The mod applies automatically on entering the lobby.
+
+### Want the full UE4SS features?
+
+If you also want the in-game console (`lobbyfps force / restore / reload / list`),
+the blueprint mod loader, dumpers, live view, or other UE4SS tools:
+
+1. Download the complete UE4SS distribution from
+   <https://github.com/UE4SS-RE/RE-UE4SS/releases> and follow its install guide.
+2. Then drop this mod's folder into your `Mods\` directory as in Option B below.
 
 ### Option B — You already have UE4SS installed
 
-1. Download either the self-contained release zip (and only use the mod folder inside
-   it) **or** clone this repo / grab the `GBVSR-LobbyFPSUnlocker` folder.
+1. Download the release zip (and only use the `Mods\GBVSR-LobbyFPSUnlocker\` folder
+   inside it) **or** clone this repo / grab the `GBVSR-LobbyFPSUnlocker` folder.
 2. Copy the mod folder into your UE4SS mods directory:
    ```
    <GBVSR install>\RED\Binaries\Win64\Mods\GBVSR-LobbyFPSUnlocker\
