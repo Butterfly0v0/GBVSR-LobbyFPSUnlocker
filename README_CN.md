@@ -26,36 +26,60 @@ GBVSR 中**大厅被锁 30 帧**,其余场景(战斗、菜单等)60 帧。本 mo
 
 ## 环境要求
 
-- 已安装 **UE4SS**(推荐 v3.0.0 以上;在 v3.0.1 Beta 上测试通过)。
+- **UE4SS**(推荐 v3.0.0 以上;在 v3.0.1 Beta,commit `e39e9c8` 上测试通过)。
   如果你能在 `RED\Binaries\Win64\` 看到 `UE4SS.dll`,就说明已装好。
-- (可选)启用 **ConsoleEnablerMod**(随 UE4SS 附带),用于 `lobbyfps` 控制台命令。不启用也不影响 mod 正常工作。
+- 启用 **ConsoleEnablerMod**(随 UE4SS 附带),用于 `lobbyfps` 控制台命令。
+  mod 本身不依赖它也能跑,但用控制台调帧/排错就需要它。
+
+本仓库的最新发布里提供一个**自带 UE4SS 整合包**(见 [Releases](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases))。
+如果你从未安装过 UE4SS,只需下载这一个压缩包即可。
 
 ## 安装
 
-将整个 `GBVSR-LobbyFPSUnlocker` 文件夹复制到 UE4SS 的 Mods 目录下:
+### 方式 A — 自带 UE4SS 的整合包(尚未安装 UE4SS 的新用户)
 
-```
-<GBVSR 安装目录>\RED\Binaries\Win64\Mods\GBVSR-LobbyFPSUnlocker\
-    enabled.txt
-    config.txt
-    Scripts\main.lua
-```
+1. 从 [Releases 页面](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases)
+   下载最新的 `GBVSR-LobbyFPSUnlocker-vX.Y.Z.zip`。包内已含 UE4SS v3.0.1 Beta(commit `e39e9c8`)+ 本 mod。
+2. 找到游戏安装目录,通常为
+   `C:\Program Files (x86)\Steam\steamapps\common\Granblue Fantasy Versus Rising`
+   (Steam 里右键游戏 → 管理 → 浏览本地文件)。
+3. 打开其中的 `RED\Binaries\Win64\` 子目录。
+4. 把压缩包里的**所有文件**解压到该 `Win64` 目录下。解压后应能看到如下新增内容:
+   ```
+   Win64\
+       dwmapi.dll                (UE4SS 代理 DLL,游戏自动加载)
+       UE4SS.dll                 (UE4SS 主加载器)
+       patternsleuth_bind.dll    (UE4SS 依赖)
+       UE4SS-settings.ini        (UE4SS 设置;此版本默认不自动弹出调试窗口)
+       READ-THIS-FIRST.md        (安装说明,内容与本节一致)
+       Changelog.md              (UE4SS 更新日志)
+       UE4SS-README.md           (UE4SS 自带 README,改名以避免冲突)
+       cache\  liveview\  watches\
+       Mods\
+           mods.txt
+           GBVSR-LobbyFPSUnlocker\   <-- 本 mod
+           ConsoleEnablerMod\        <-- 启用 F10 控制台
+           ... 其它标准 UE4SS 示例 mod
+   ```
+5. 启动游戏,进入大厅即自动生效。
 
-`<GBVSR 安装目录>` 通常是:
+### 方式 B — 你已安装 UE4SS
 
-```
-C:\Program Files (x86)\Steam\steamapps\common\Granblue Fantasy Versus Rising
-```
+1. 下载整合包(只用其中的 mod 文件夹)**或**直接克隆本仓库 / 单独取 `GBVSR-LobbyFPSUnlocker` 文件夹。
+2. 把 mod 文件夹复制到 UE4SS 的 mods 目录:
+   ```
+   <GBVSR 安装目录>\RED\Binaries\Win64\Mods\GBVSR-LobbyFPSUnlocker\
+       enabled.txt
+       config.txt
+       Scripts\main.lua
+   ```
+3. 如果你的 `Mods\mods.txt` 存在,追加一行(顺序无关):
+   ```
+   GBVSR-LobbyFPSUnlocker : 1
+   ```
+4. 如果你的 UE4SS 使用每 mod 一个 `enabled.txt` 文件(本 mod 文件夹内已包含),mod 会自动启动,无需额外操作。
 
-### 启用
-
-如果你的 `Mods\` 目录里有 `mods.txt`,在里面追加一行(顺序无关):
-
-```
-GBVSR-LobbyFPSUnlocker : 1
-```
-
-如果你的 UE4SS 使用每 mod 一个 `enabled.txt` 文件(本压缩包内已包含),mod 会自动启动,无需额外操作。
+使用方式 B **无需**覆盖你现有的 `UE4SS.dll`、`dwmapi.dll`、`UE4SS-settings.ini`。
 
 ## 配置
 
