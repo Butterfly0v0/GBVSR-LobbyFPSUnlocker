@@ -28,36 +28,66 @@ The whole loop is driven by a `LoopAsync` watchdog that re-checks every `250ms` 
 
 ## Requirements
 
-- A working **UE4SS** install (v3.0.0+ recommended; tested on v3.0.1 Beta).
+- **UE4SS** (v3.0.0+ recommended; tested on v3.0.1 Beta, commit `e39e9c8`).
   The game already has UE4SS if you see `RED\Binaries\Win64\UE4SS.dll`.
-- **ConsoleEnablerMod** enabled (ships with UE4SS) if you want to use the `lobbyfps` console commands. Not required for the mod to function.
+- **ConsoleEnablerMod** enabled (ships with UE4SS) for the `lobbyfps` console commands.
+  Not required for the mod itself to function.
+
+The latest release on this repo ships a **self-contained zip** that bundles UE4SS
+plus the mod (see [Releases](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases)).
+If you've never installed UE4SS, that's the only download you need.
 
 ## Installation
 
-Copy the entire `GBVSR-LobbyFPSUnlocker` folder into your UE4SS Mods directory:
+### Option A — Self-contained release (no UE4SS installed yet)
 
-```
-<GBVSR install>\RED\Binaries\Win64\Mods\GBVSR-LobbyFPSUnlocker\
-    enabled.txt
-    config.txt
-    Scripts\main.lua
-```
+1. Download the latest `GBVSR-LobbyFPSUnlocker-vX.Y.Z.zip` from the
+   [Releases page](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases).
+   It bundles UE4SS v3.0.1 Beta (commit `e39e9c8`) + the mod.
+2. Locate your game install — usually
+   `C:\Program Files (x86)\Steam\steamapps\common\Granblue Fantasy Versus Rising`.
+   (In Steam: right-click the game → Manage → Browse local files.)
+3. Open the `RED\Binaries\Win64\` sub-folder inside it.
+4. Extract **everything** from the zip into that `Win64` folder. After extraction
+   you should see these new entries:
+   ```
+   Win64\
+       dwmapi.dll                (UE4SS proxy, auto-loaded by the game)
+       UE4SS.dll                 (UE4SS main loader)
+       patternsleuth_bind.dll    (UE4SS dependency)
+       UE4SS-settings.ini
+       READ-THIS-FIRST.md        (install guide — same content as this section)
+       Changelog.md              (UE4SS changelog)
+       UE4SS-README.md           (UE4SS's own readme, renamed to avoid clash)
+       cache\  liveview\  watches\
+       Mods\
+           mods.txt
+           GBVSR-LobbyFPSUnlocker\   <-- the actual mod
+           ConsoleEnablerMod\        <-- enables the F10 in-game console
+           ... other standard UE4SS mods
+   ```
+5. Launch the game. The mod applies automatically on entering the lobby.
 
-Where `<GBVSR install>` is typically:
+### Option B — You already have UE4SS installed
 
-```
-C:\Program Files (x86)\Steam\steamapps\common\Granblue Fantasy Versus Rising
-```
+1. Download either the self-contained release zip (and only use the mod folder inside
+   it) **or** clone this repo / grab the `GBVSR-LobbyFPSUnlocker` folder.
+2. Copy the mod folder into your UE4SS mods directory:
+   ```
+   <GBVSR install>\RED\Binaries\Win64\Mods\GBVSR-LobbyFPSUnlocker\
+       enabled.txt
+       config.txt
+       Scripts\main.lua
+   ```
+3. If your `Mods\mods.txt` exists, add this line (load-order independent):
+   ```
+   GBVSR-LobbyFPSUnlocker : 1
+   ```
+4. If your UE4SS setup uses per-mod `enabled.txt` files (already shipped in the mod
+   folder), the mod starts automatically — no further action needed.
 
-### Enabling
-
-If a `mods.txt` file is present in your `Mods\` folder, add this line (it's load-order independent):
-
-```
-GBVSR-LobbyFPSUnlocker : 1
-```
-
-If your UE4SS setup uses `enabled.txt` (one per mod, in each mod's own folder) — already shipped in this archive — the mod starts automatically, no further action needed.
+You do **not** need to overwrite your existing `UE4SS.dll`, `dwmapi.dll`, or
+`UE4SS-settings.ini` if you go with Option B.
 
 ## Configuration
 
