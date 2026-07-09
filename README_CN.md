@@ -28,18 +28,19 @@ GBVSR 中**大厅被锁 30 帧**,其余场景(战斗、菜单等)60 帧。本 mo
 
 - **UE4SS**(推荐 v3.0.0 以上;在 v3.0.1 Beta,commit `e39e9c8` 上测试通过)。
   如果你能在 `RED\Binaries\Win64\` 看到 `UE4SS.dll`,就说明已装好。
-- 启用 **ConsoleEnablerMod**(随 UE4SS 附带),用于 `lobbyfps` 控制台命令。
-  mod 本身不依赖它也能跑,但用控制台调帧/排错就需要它。
+- (可选)启用 **ConsoleEnablerMod**(随 UE4SS 附带),用于 `lobbyfps` 控制台命令。
+  mod 本身不依赖它也能跑——它会在后台自动解锁大厅帧;控制台命令仅供调帧/排错之用。
 
-本仓库的最新发布里提供一个**自带 UE4SS 整合包**(见 [Releases](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases))。
-如果你从未安装过 UE4SS,只需下载这一个压缩包即可。
+本仓库的最新发布里提供一个**最小化自带 UE4SS 的整合包**(见 [Releases](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases))。
+包内只含 UE4SS 核心 DLL + 本 mod,**不含**标准 UE4SS 示例 mod(控制台启用、蓝图 mod 加载、各种 dump 等)。
+如需完整 UE4SS 功能,请到上游仓库下载:<https://github.com/UE4SS-RE/RE-UE4SS/releases>。
 
 ## 安装
 
-### 方式 A — 自带 UE4SS 的整合包(尚未安装 UE4SS 的新用户)
+### 方式 A — 最小化整合包(尚未安装 UE4SS 的新用户)
 
 1. 从 [Releases 页面](https://github.com/Butterfly0v0/GBVSR-LobbyFPSUnlocker/releases)
-   下载最新的 `GBVSR-LobbyFPSUnlocker-vX.Y.Z.zip`。包内已含 UE4SS v3.0.1 Beta(commit `e39e9c8`)+ 本 mod。
+   下载最新的 `GBVSR-LobbyFPSUnlocker-vX.Y.Z.zip`。包内已含 UE4SS v3.0.1 Beta(commit `e39e9c8`)核心 DLL + 本 mod。
 2. 找到游戏安装目录,通常为
    `C:\Program Files (x86)\Steam\steamapps\common\Granblue Fantasy Versus Rising`
    (Steam 里右键游戏 → 管理 → 浏览本地文件)。
@@ -49,19 +50,23 @@ GBVSR 中**大厅被锁 30 帧**,其余场景(战斗、菜单等)60 帧。本 mo
    Win64\
        dwmapi.dll                (UE4SS 代理 DLL,游戏自动加载)
        UE4SS.dll                 (UE4SS 主加载器)
-       patternsleuth_bind.dll    (UE4SS 依赖)
        UE4SS-settings.ini        (UE4SS 设置;此版本默认不自动弹出调试窗口)
-       READ-THIS-FIRST.md        (安装说明,内容与本节一致)
-       Changelog.md              (UE4SS 更新日志)
-       UE4SS-README.md           (UE4SS 自带 README,改名以避免冲突)
-       cache\  liveview\  watches\
+       READ-THIS-FIRST.md        (安装说明 & 故障排除)
        Mods\
            mods.txt
            GBVSR-LobbyFPSUnlocker\   <-- 本 mod
-           ConsoleEnablerMod\        <-- 启用 F10 控制台
-           ... 其它标准 UE4SS 示例 mod
    ```
+   注:本最小化包**不**含标准 UE4SS 示例 mod(`ConsoleEnablerMod` 等),也不含运行时缓存目录。
+   mod 仍能正常工作——会按 `config.txt` 进入大厅后自动解锁。但本整合包下
+   `lobbyfps` 控制台命令**不可用**(需要 `ConsoleEnablerMod` 才能呼出 F10 控制台)。
 5. 启动游戏,进入大厅即自动生效。
+
+### 需要完整 UE4SS 功能?
+
+如果你也想要游戏内控制台(`lobbyfps force / restore / reload / list`)、蓝图 mod 加载器、各种 dump、live view 等 UE4SS 自带工具:
+
+1. 从 <https://github.com/UE4SS-RE/RE-UE4SS/releases> 下载完整 UE4SS 分发包并按其说明安装。
+2. 然后按方式 B 把本 mod 的文件夹放进你的 `Mods\` 目录里即可。
 
 ### 方式 B — 你已安装 UE4SS
 
